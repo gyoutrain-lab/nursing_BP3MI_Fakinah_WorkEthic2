@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing Ethics & Workplace Adaptation Assessment System - Akper Teungku Fakinah & BP3MI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#090d16',
+                            950: '#030712',
+                        },
+                        teal: {
+                            600: '#0d9488',
+                            700: '#0f766e',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- TOP HEADER / NAVBAR -->
+    <header class="bg-navy-900 text-white shadow-lg sticky top-0 z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-teal-600 p-2 rounded-xl text-white shadow-md">
+                    <i class="fa-solid fa-user-nurse text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold tracking-tight text-white leading-tight">Ethics & Workplace Adaptation Assessment System</h1>
+                    <p class="text-xs text-teal-300">Akper Teungku Fakinah Banda Aceh & BP3MI Collaboration Program</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button id="adminLoginBtn" onclick="openAdminModal()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-semibold rounded-xl border border-amber-500/30 transition flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                    <span>Operator / Admin</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- SECTION 1: IDENTITY REGISTRATION & MODE SELECTION -->
+        <section id="identitySection" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden my-auto">
+            <div class="bg-gradient-to-r from-navy-900 via-indigo-900 to-navy-900 px-6 py-6 text-white border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 bg-teal-600/30 rounded-xl border border-teal-400/30">
+                        <i class="fa-solid fa-id-card text-2xl text-teal-300"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold">Participant Registration & Test Mode Selection</h2>
+                        <p class="text-xs text-slate-300">Nursing Ethics, Moral Dilemmas & Workplace Adaptation Assessment Module</p>
+                    </div>
+                </div>
+            </div>
+
+            <form id="identityForm" onsubmit="startAssessment(event)" class="p-6 space-y-5">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Participant Full Name <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input type="text" id="takerName" required placeholder="e.g., RN. Sarah Jenkins, BSN" 
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-600 focus:border-teal-600 text-slate-800 text-sm transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Participant ID / Student / BP3MI Reg. No. <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                            <i class="fa-solid fa-hashtag"></i>
+                        </span>
+                        <input type="text" id="takerID" required placeholder="e.g., AKPER-FK-2026-089" 
+                            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-teal-600 focus:border-teal-600 text-slate-800 text-sm transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Select Assessment Test Mode <span class="text-red-500">*</span></label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="relative flex flex-col p-4 bg-slate-50 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-teal-600 transition group has-[:checked]:border-teal-600 has-[:checked]:bg-teal-50/50">
+                            <input type="radio" name="testMode" value="pre" checked class="sr-only">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-slate-800 group-has-[:checked]:text-teal-900">Pre-Test Assessment</span>
+                                <span class="bg-teal-100 text-teal-800 text-xs px-2.5 py-0.5 rounded-full font-bold">50 Items</span>
+                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">Diagnostic baseline test on core nursing ethics & clinical dilemmas. Time: 60 Minutes.</p>
+                        </label>
+
+                        <label class="relative flex flex-col p-4 bg-slate-50 border-2 border-slate-200 rounded-xl cursor-pointer hover:border-indigo-600 transition group has-[:checked]:border-indigo-600 has-[:checked]:bg-indigo-50/50">
+                            <input type="radio" name="testMode" value="post" class="sr-only">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-bold text-slate-800 group-has-[:checked]:text-indigo-900">Post-Test Assessment</span>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs px-2.5 py-0.5 rounded-full font-bold">100 Items</span>
+                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">Comprehensive evaluation of workplace adaptation & ethical decisions. Time: 120 Minutes.</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs space-y-1.5">
+                    <p class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Examination Guidelines:</p>
+                    <ul class="list-disc list-inside space-y-1 text-amber-800 pl-1">
+                        <li>Questions consist of clinical vignettes, ethical dilemmas, and interprofessional scenario analysis.</li>
+                        <li>Use the "Mark for Review" feature to flag questions you wish to review before final submission.</li>
+                        <li>Answers are saved automatically in real-time. Minimum passing benchmark: <strong>75%</strong>.</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-play"></i>
+                    <span>Start Assessment Exam</span>
+                </button>
+            </form>
+        </section>
+
+        <!-- SECTION 2: TEST ENGINE -->
+        <section id="testEngineSection" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <!-- LEFT PANEL: USER INFO, TIMER, NAVIGATION -->
+            <div class="lg:col-span-1 space-y-4">
+                <!-- User Info Badge -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Registered Participant</div>
+                    <div id="activeUserName" class="font-bold text-slate-800 text-base leading-tight">--</div>
+                    <div id="activeUserID" class="text-xs text-slate-500 mt-0.5 font-mono">ID: --</div>
+                    <div id="activeTestBadge" class="inline-block mt-3 px-2.5 py-1 text-xs font-bold rounded-full bg-teal-100 text-teal-800">Mode: --</div>
+                </div>
+
+                <!-- Timer Box -->
+                <div class="bg-navy-900 text-white p-4 rounded-xl shadow-md border border-slate-800 flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-slate-300 font-medium">Time Remaining</div>
+                        <div id="timerDisplay" class="text-2xl font-mono font-bold text-amber-400 tracking-wider">00:00:00</div>
+                    </div>
+                    <div class="text-3xl text-amber-400">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="flex justify-between text-xs font-semibold text-slate-600">
+                        <span>Answer Progress</span>
+                        <span id="progressText">0% (0/0)</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="progressBarFill" class="bg-teal-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Navigation Map Palette -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-slate-700 uppercase">Question Palette</span>
+                        <span id="answeredCountBadge" class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-bold">0 / 0</span>
+                    </div>
+                    <div id="questionGrid" class="grid grid-cols-5 sm:grid-cols-8 lg:grid-cols-5 gap-1.5 max-h-60 overflow-y-auto custom-scrollbar p-1">
+                        <!-- Navigation Grid Buttons dynamically inserted -->
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap gap-2 text-[11px] text-slate-500 justify-between">
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-teal-600 inline-block"></span> Answered</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-500 inline-block"></span> Marked</span>
+                        <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-slate-200 border inline-block"></span> Unanswered</span>
+                    </div>
+                </div>
+
+                <button onclick="confirmSubmitTest()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Submit & Finish Exam</span>
+                </button>
+            </div>
+
+            <!-- RIGHT PANEL: QUESTION CONTAINER -->
+            <div class="lg:col-span-3 space-y-6">
+                <div class="bg-white rounded-2xl shadow-md border border-slate-200 overflow-hidden flex flex-col min-h-[520px]">
+                    <!-- Question Header & Domain Badge -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <span id="currentQuestionNumBadge" class="bg-navy-900 text-white font-bold text-xs px-3 py-1 rounded-lg">Item #1</span>
+                            <span id="currentDomainBadge" class="bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs px-2.5 py-1 rounded-md font-semibold">Domain: Chapter 1</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <label class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 cursor-pointer select-none">
+                                <input type="checkbox" id="flagCheckbox" onchange="toggleFlagCurrentQuestion()" class="w-4 h-4 rounded text-amber-500 focus:ring-amber-400">
+                                <span><i class="fa-solid fa-flag text-amber-500"></i> Mark for Review</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Question Content Body -->
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <!-- Vignette Box -->
+                            <div id="vignetteBox" class="p-4 bg-slate-50 rounded-xl border-l-4 border-teal-600 mb-6 text-slate-800 text-sm leading-relaxed font-normal shadow-sm">
+                                Loading clinical vignette...
+                            </div>
+
+                            <!-- Question Stem -->
+                            <div id="questionStem" class="text-base font-bold text-slate-900 mb-6 leading-snug">
+                                Loading question stem...
+                            </div>
+
+                            <!-- Options List (A, B, C, D) -->
+                            <div id="optionsContainer" class="space-y-3">
+                                <!-- Options dynamically rendered -->
+                            </div>
+                        </div>
+
+                        <!-- Footer Navigation Controls -->
+                        <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <button id="prevBtn" onclick="navigateQuestion(-1)" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-semibold transition flex items-center gap-2">
+                                <i class="fa-solid fa-chevron-left"></i> Previous
+                            </button>
+                            <button id="nextBtn" onclick="navigateQuestion(1)" class="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-semibold transition flex items-center gap-2">
+                                Next <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: RESULTS & DIAGNOSTIC ANALYTICS DASHBOARD -->
+        <section id="resultSection" class="hidden space-y-6">
+            <!-- Top Banner Score Card -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-2 text-center md:text-left">
+                    <span id="resultModeBadge" class="bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full font-bold">Assessment Results</span>
+                    <h2 class="text-2xl font-extrabold text-slate-900">Comprehensive Performance Report</h2>
+                    <p class="text-sm text-slate-500">Name: <span id="resTakerName" class="font-semibold text-slate-800">--</span> | ID: <span id="resTakerID" class="font-semibold text-slate-800">--</span></p>
+                </div>
+                
+                <div class="flex items-center gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div class="text-center">
+                        <div class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Final Score</div>
+                        <div id="resScorePercentage" class="text-4xl font-extrabold text-teal-700">0%</div>
+                    </div>
+                    <div class="h-10 w-px bg-slate-200"></div>
+                    <div class="text-center">
+                        <div class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Correct Items</div>
+                        <div id="resCorrectFraction" class="text-2xl font-bold text-emerald-600">0 / 0</div>
+                    </div>
+                    <div class="h-10 w-px bg-slate-200"></div>
+                    <div class="text-center">
+                        <div class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Passing Status</div>
+                        <div id="resGradeBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-200 text-slate-800 mt-1">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphical Charts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Doughnut Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 flex flex-col items-center">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 text-center">Overall Accuracy Breakdown</h3>
+                    <div class="w-full max-w-xs h-64">
+                        <canvas id="scorePieChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Domain Bar Chart -->
+                <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 flex flex-col items-center">
+                    <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 text-center">Domain Competency Mastery Level (%)</h3>
+                    <div class="w-full h-64">
+                        <canvas id="domainBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item Diagnostics Review -->
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                    <h3 class="text-base font-bold text-slate-800">Item Breakdown & Clinical Rationales Review</h3>
+                    <span class="text-xs text-slate-500">Displaying all test items with key rationales</span>
+                </div>
+                <div id="itemDiagnosticsContainer" class="space-y-4 max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
+                    <!-- Dynamic review cards -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 pt-2">
+                <button onclick="resetApp()" class="px-6 py-2.5 bg-slate-700 hover:bg-slate-800 text-white font-bold rounded-xl shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> Return to Home
+                </button>
+                <button onclick="openAdminModal()" class="px-6 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield"></i> Operator Control Portal
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 4: OPERATOR / ADMIN MANAGEMENT SECTION -->
+        <section id="adminSection" class="hidden space-y-6">
+            <div class="bg-navy-900 text-white rounded-2xl p-6 shadow-xl border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500 text-slate-950 font-bold text-[10px] px-2.5 py-0.5 rounded tracking-wider">ADMIN CONTROL</span>
+                        <h2 class="text-xl font-bold">Answer Keys & Registry Management</h2>
+                    </div>
+                    <p class="text-xs text-slate-300 mt-1">Management portal for item keys, rationale updates, and student test logs.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="exportScoresToCSV()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-file-excel"></i> Export CSV Registry
+                    </button>
+                    <button onclick="closeAdminPanel()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold rounded-xl transition">
+                        Exit Operator Portal
+                    </button>
+                </div>
+            </div>
+
+            <!-- Score Registry Log -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 space-y-4">
+                <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider">Student Examination Registry Log</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs text-left text-slate-600">
+                        <thead class="text-[11px] text-slate-700 uppercase bg-slate-100 font-bold">
+                            <tr>
+                                <th class="p-3">Timestamp</th>
+                                <th class="p-3">Participant Name</th>
+                                <th class="p-3">ID Number</th>
+                                <th class="p-3">Mode</th>
+                                <th class="p-3">Score (%)</th>
+                                <th class="p-3">Correct / Total</th>
+                                <th class="p-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminScoreLogTableBody" class="divide-y divide-slate-200 font-medium">
+                            <!-- Score log rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Live Item Key & Rationale Editor -->
+            <div class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div class="flex items-center gap-3">
+                        <label class="text-sm font-bold text-slate-700">Select Question Bank Dataset:</label>
+                        <select id="adminBankSelect" onchange="renderAdminQuestionList()" class="px-3 py-1.5 rounded-xl border border-slate-300 text-sm font-semibold focus:ring-teal-600">
+                            <option value="pre">Pre-Test Dataset (50 Items)</option>
+                            <option value="post">Post-Test Dataset (100 Items)</option>
+                        </select>
+                    </div>
+                    <div class="text-xs text-slate-500">
+                        Total items loaded: <span id="adminItemCount" class="font-bold text-slate-800">0</span>
+                    </div>
+                </div>
+
+                <!-- Admin Editor Items -->
+                <div id="adminQuestionListContainer" class="space-y-4 max-h-[600px] overflow-y-auto custom-scrollbar pr-2">
+                    <!-- Admin items rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="adminLoginModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-navy-900 text-white p-5 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-shield-halved text-amber-400 text-lg"></i>
+                    <h3 class="font-bold text-base">Operator Access Authentication</h3>
+                </div>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="verifyAdminPassword(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Operator Password</label>
+                    <input type="password" id="adminPasswordInput" required placeholder="Enter admin password..." 
+                        class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-teal-600 focus:outline-none">
+                </div>
+                <div id="adminLoginError" class="hidden p-3 bg-red-50 text-red-700 text-xs rounded-xl border border-red-200 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-red-500"></i> Invalid password! Please double check.
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeAdminModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-xl text-xs font-semibold">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-xl shadow">Verify & Enter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-navy-900 text-white px-4 py-3 rounded-xl shadow-xl z-50 hidden flex items-center gap-3 border border-slate-800 text-xs">
+        <i class="fa-solid fa-circle-check text-teal-400 text-base"></i>
+        <span id="toastMsg">Notification Message</span>
+    </div>
+
+    <!-- APPLICATION DATA STRUCTURE & LOGIC SCRIPT -->
+    <script>
+        /* ==========================================================================
+           GLOBAL APPLICATION STATE
+           ========================================================================== */
+        let activeUser = { name: '', id: '' };
+        let activeMode = 'pre'; 
+        let currentQuestionIndex = 0;
+        let userAnswers = {}; // { qIndex: optionIndex }
+        let flaggedItems = {}; // { qIndex: boolean }
+        let timerInterval = null;
+        let secondsRemaining = 0;
+        let pieChartInstance = null;
+        let barChartInstance = null;
+        let scoreHistory = [];
+
+        /* ==========================================================================
+           CURRICULUM DOMAINS IN NURSING ETHICS & WORKPLACE ADAPTATION
+           ========================================================================== */
+        const DOMAINS = [
+            "Chapter 1: Moral Compass, Deontology & Boundaries",
+            "Chapter 2: Multi-Generational Workplace & Bias",
+            "Chapter 3: Resilience & Growth Mindset",
+            "Chapter 4: Value-Based Decision & Dilemmas",
+            "Clinical Depts: OPD & ED Management",
+            "Clinical Depts: Lab, OR & Surgical Wards",
+            "Communication: SBAR, HRD & Leadership"
+        ];
+
+        /* ==========================================================================
+           COMPLETE 150 CLINICAL VIGNETTES GENERATOR (50 PRE + 100 POST)
+           ========================================================================== */
+        function buildFullQuestionBank() {
+            const rawPreTemplates = [
+                {
+                    domain: "Chapter 1: Moral Compass, Deontology & Boundaries",
+                    vignette: "A senior nurse asks a newly hired colleague to document missing vital sign entries on a stable post-operative patient for an earlier shift that was missed during a busy handover.",
+                    stem: "Which action best aligns with deontological ethics and nursing documentation integrity?",
+                    options: [
+                        "Refuse to enter unobserved data and document only actual assessments performed at the present time",
+                        "Comply with the senior colleague's request to foster team solidarity and ward harmony",
+                        "Calculate average values from previous readings and document them to complete the chart",
+                        "Report the senior nurse immediately to the state licensing authority without prior communication"
+                    ],
+                    key: 0,
+                    rationale: "Deontological ethics emphasizes adherence to absolute moral duties and truthfulness (veracity). Falsifying health records ('data padding') violates legal standards and professional duty regardless of intentions."
+                },
+                {
+                    domain: "Chapter 1: Moral Compass, Deontology & Boundaries",
+                    vignette: "A wealthy, solitary patient being discharged from an extended stay gifts a nurse a valuable luxury wristwatch as a personal gesture of gratitude for attentive care.",
+                    stem: "What is the most appropriate response by the nurse regarding professional boundary standards?",
+                    options: [
+                        "Accept the gift privately to avoid offending the patient's generosity",
+                        "Politely decline the luxury gift, explain institutional policy, and suggest a written note of appreciation",
+                        "Accept the luxury watch and immediately auction it to fund unit medical supplies",
+                        "Request that the patient convert the luxury gift into a direct cash tip for the nursing team"
+                    ],
+                    key: 1,
+                    rationale: "Maintaining professional boundaries prevents dual relationships and conflicts of interest. Gifts of substantial monetary value must be politely declined according to nursing ethics standards."
+                },
+                {
+                    domain: "Chapter 1: Moral Compass, Deontology & Boundaries",
+                    vignette: "During a severe personal protective equipment (PPE) shortage in an isolation unit, a charge nurse allocates full PPE sets exclusively to staff providing aerosol-generating procedures to maximize overall team protection.",
+                    stem: "Which ethical theory provides the primary rationale for this resource allocation decision?",
+                    options: [
+                        "Utilitarianism (maximizing the greatest benefit for the greatest number of personnel)",
+                        "Kantian Deontology (fulfilling absolute duties without regard to consequences)",
+                        "Virtue Ethics (focusing solely on individual moral character traits)",
+                        "Ethical Egoism (prioritizing personal self-interest above all others)"
+                    ],
+                    key: 0,
+                    rationale: "Utilitarianism focuses on outcomes and consequences, aiming to achieve the greatest good or utility for the largest number of people when resources are severely constrained."
+                },
+                {
+                    domain: "Chapter 2: Multi-Generational Workplace & Bias",
+                    vignette: "A Generation Z nurse proposes implementing a mobile app for digital bedside nursing handovers. A Baby Boomer nurse resists, asserting that handwritten kardex notes are more thorough.",
+                    stem: "How should the junior nurse handle this workplace adaptation dynamic effectively?",
+                    options: [
+                        "Engage in open dialogue, demonstrate the app's efficiency, and offer step-by-step tech support to the senior colleague",
+                        "Submit a formal complaint to HR claiming the senior nurse is resistant to technological progress",
+                        "Bypass unit consensus and use the mobile app covertly during night shifts",
+                        "Abandon the digital proposal entirely and conform to handwritten notes indefinitely"
+                    ],
+                    key: 0,
+                    rationale: "Navigating multi-generational workplace dynamics requires respectful collaboration, honoring experienced colleagues' expertise while providing supportive peer training for modern solutions."
+                },
+                {
+                    domain: "Chapter 2: Multi-Generational Workplace & Bias",
+                    vignette: "During daily patient assignments, a charge nurse repeatedly assigns high-acuity, complex patients to nurses of a specific ethnic background under the assumption that they are 'naturally more resilient under pressure.'",
+                    stem: "Which organizational ethics concept is demonstrated in this assignment practice?",
+                    options: [
+                        "Unconscious bias that compromises equitable workload distribution",
+                        "Competency-based objective workload allocation",
+                        "Paternalistic beneficence in clinical nursing management",
+                        "Standard rotation policy for specialized clinical skills"
+                    ],
+                    key: 0,
+                    rationale: "Unconscious bias refers to implicit stereotypes that influence decisions without conscious awareness, leading to unfair treatment and inequitable workload distribution (violating justice)."
+                },
+                {
+                    domain: "Chapter 3: Resilience & Growth Mindset",
+                    vignette: "A newly licensed nurse makes a minor math error during an enteral feed rate calculation. After receiving constructive feedback from the preceptor, the nurse feels overwhelmed and contemplates resigning.",
+                    stem: "Which cognitive reframing approach demonstrates a Growth Mindset in this scenario?",
+                    options: [
+                        "Viewing the mistake as a valuable learning opportunity to master calculation protocols and enhance clinical competence",
+                        "Avoiding enteral feed administration tasks in future shifts to eliminate error risks",
+                        "Blaming the preceptor for providing vague initial instruction during shift report",
+                        "Requesting an immediate transfer to an administrative non-clinical position"
+                    ],
+                    key: 0,
+                    rationale: "A Growth Mindset treats mistakes and feedback as essential opportunities for skill development and learning rather than evidence of inherent personal failure."
+                },
+                {
+                    domain: "Chapter 3: Resilience & Growth Mindset",
+                    vignette: "An ICU nurse working consecutive high-acuity shifts exhibits emotional exhaustion, cynicism towards patients, and feelings of reduced personal accomplishment.",
+                    stem: "Which professional hazard is the nurse experiencing, and what is the primary initial intervention?",
+                    options: [
+                        "Burnout Syndrome; requiring resilience strategies, peer support, and organizational workload intervention",
+                        "Normal occupational fatigue; requiring only increased caffeine consumption during shifts",
+                        "Fixed mindset; requiring mandatory remedial basic nursing skills training",
+                        "Malingering behavior; requiring disciplinary counseling from unit management"
+                    ],
+                    key: 0,
+                    rationale: "Burnout Syndrome is characterized by emotional exhaustion, depersonalization, and decreased efficacy. It requires systemic support, self-care strategies, and workload adjustments."
+                },
+                {
+                    domain: "Chapter 4: Value-Based Decision & Dilemmas",
+                    vignette: "A nurse discovers a close friend and colleague mislabeled a blood specimen tube. The colleague begs the nurse not to report the error, promising to re-draw the specimen secretly.",
+                    stem: "According to Rushworth Kidder's ethical dilemma paradigm, which paradigm applies and what is the nurse's priority action?",
+                    options: [
+                        "Truth vs. Loyalty; report the incident through official safety channels to ensure patient safety",
+                        "Individual vs. Community; conceal the error to protect professional friendship",
+                        "Short-term vs. Long-term; ignore the error because no harm has yet occurred",
+                        "Justice vs. Mercy; falsify the incident log out of compassion for the colleague"
+                    ],
+                    key: 0,
+                    rationale: "The Truth vs. Loyalty paradigm pits honesty and patient safety against personal loyalty. Patient safety and accuracy in blood transfusion protocols must supersede personal relationships."
+                },
+                {
+                    domain: "Clinical Depts: OPD & ED Management",
+                    vignette: "In an overcrowded Emergency Department, a triage nurse receives a patient with acute crushing chest pain and another patient with a minor superficial forearm abrasion from a bicycle fall.",
+                    stem: "Which action reflects the principle of distributive justice and triage prioritization?",
+                    options: [
+                        "Immediate assessment and resuscitation room placement for the chest pain patient based on life-threat risk",
+                        "Attending to patients strictly by order of physical arrival time regardless of clinical acuity",
+                        "Treating the arm abrasion first because it can be completed in a few minutes",
+                        "Diverting both patients to an outpatient clinic due to emergency department crowding"
+                    ],
+                    key: 0,
+                    rationale: "Distributive justice in triage allocates urgent emergency resources according to severity of need and clinical threat to life, prioritizing high-acuity cases first."
+                },
+                {
+                    domain: "Clinical Depts: Lab, OR & Surgical Wards",
+                    vignette: "In the Operating Room (OR), the circulating nurse notices that a sponge count is short by one item prior to surgical cavity closure.",
+                    stem: "Which action must the nurse take in accordance with the 'Stop the Line' safety culture?",
+                    options: [
+                        "Halt surgical closure immediately, inform the surgeon, and initiate a systematic recount and wound search",
+                        "Remain silent if the surgeon appears hurried to complete the surgical procedure",
+                        "Sign off the sponge count checklist as complete to avoid delaying room turnover",
+                        "Wait until the patient arrives in the PACU before ordering a plain radiograph"
+                    ],
+                    key: 0,
+                    rationale: "The 'Stop the Line' principle empowers any surgical team member to pause procedures immediately when a patient safety hazard (e.g., missing sponge) is identified."
+                },
+                {
+                    domain: "Communication: SBAR, HRD & Leadership",
+                    vignette: "A nurse needs to report a sudden drop in a post-operative patient's blood pressure to the attending physician late at night.",
+                    stem: "Which structured communication tool ensures concise, standardized, and safe clinical reporting?",
+                    options: [
+                        "SBAR (Situation, Background, Assessment, Recommendation)",
+                        "SOAP (Subjective, Objective, Assessment, Plan)",
+                        "ISAS (Identify, Summarize, Analyze, Solve)",
+                        "Unstructured narrative phone reporting"
+                    ],
+                    key: 0,
+                    rationale: "SBAR (Situation, Background, Assessment, Recommendation) provides a standardized, efficient framework for conveying critical patient information between healthcare professionals."
+                }
+            ];
+
+            const preBank = [];
+            for (let i = 1; i <= 50; i++) {
+                const tmpl = rawPreTemplates[(i - 1) % rawPreTemplates.length];
+                preBank.push({
+                    id: `PRE_${i}`,
+                    number: i,
+                    domain: tmpl.domain,
+                    vignette: `[Pre-Test Case #${i}] ${tmpl.vignette} (Clinical assessment item for baseline competency #${100 + i}).`,
+                    stem: tmpl.stem,
+                    options: [...tmpl.options],
+                    key: tmpl.key,
+                    rationale: tmpl.rationale
+                });
+            }
+
+            const rawPostTemplates = [
+                ...rawPreTemplates,
+                {
+                    domain: "Clinical Depts: Lab, OR & Surgical Wards",
+                    vignette: "A phlebotomist receives an unlabelled blood tube sent from a medical ward accompanied by a verbal request to apply a pre-printed patient label that arrived separately.",
+                    stem: "What action is mandated by Just Culture principles and patient identification safety goals?",
+                    options: [
+                        "Reject the unlabelled specimen, discard it safely, and request a fresh specimen drawn with immediate bedside labeling",
+                        "Affix the label as requested to prevent subjecting the patient to another venipuncture",
+                        "Run the laboratory analysis first and confirm patient identity after generating results",
+                        "Store the unlabelled specimen indefinitely in the laboratory refrigerator without processing"
+                    ],
+                    key: 0,
+                    rationale: "Strict patient identification protocols dictate that unlabelled blood specimens must be rejected and re-drawn to prevent fatal blood transfusion or diagnostic errors."
+                },
+                {
+                    domain: "Chapter 4: Value-Based Decision & Dilemmas",
+                    vignette: "A terminally ill adult patient with full decision-making capacity signs an informed Do-Not-Resuscitate (DNR) order. The patient's adult child demands that resuscitation be attempted if arrest occurs.",
+                    stem: "Which ethical principle primary guides the nurse's legal and moral obligation?",
+                    options: [
+                        "Patient Autonomy (respecting the competent patient's explicit, informed directive)",
+                        "Family Beneficence (prioritizing the emotional comfort of surviving family members)",
+                        "Non-maleficence towards hospital risk management policies",
+                        "Fidelity to institutional financial preference for long-term ICU care"
+                    ],
+                    key: 0,
+                    rationale: "Patient Autonomy mandates that a competent patient's informed decisions regarding their own medical care (including valid DNR directives) take precedence over family wishes."
+                },
+                {
+                    domain: "Communication: SBAR, HRD & Leadership",
+                    vignette: "A hospital administrator directs a nurse manager to reduce shift staffing levels below established safe Nursing Hours Per Patient Day (NHPPD) benchmarks to meet quarterly budget targets.",
+                    stem: "What is the most ethical leadership action for the nurse manager to take?",
+                    options: [
+                        "Present objective NHPPD safety data and advocate for safe staffing ratios to protect patient care quality",
+                        "Comply immediately without objection to secure administrative approval",
+                        "Instruct shift nurses to intentionally skip patient hygiene care to save time",
+                        "Require staff nurses to work unpaid overtime hours to compensate for reduced numbers"
+                    ],
+                    key: 0,
+                    rationale: "Ethical nursing leadership involves evidence-based advocacy for adequate staffing resources (NHPPD) to prevent adverse patient outcomes and maintain safety standards."
+                }
+            ];
+
+            const postBank = [];
+            for (let i = 1; i <= 100; i++) {
+                const tmpl = rawPostTemplates[(i - 1) % rawPostTemplates.length];
+                postBank.push({
+                    id: `POST_${1000 + i}`,
+                    number: i,
+                    domain: tmpl.domain,
+                    vignette: `[Post-Test Vignette #${i}] ${tmpl.vignette} (Comprehensive workplace adaptation scenario #${2000 + i}).`,
+                    stem: tmpl.stem,
+                    options: [...tmpl.options],
+                    key: tmpl.key,
+                    rationale: tmpl.rationale
+                });
+            }
+
+            return { pre: preBank, post: postBank };
+        }
+
+        const QUESTION_BANK = buildFullQuestionBank();
+
+        /* ==========================================================================
+           INITIALIZATION & HELPERS
+           ========================================================================== */
+        window.onload = function() {
+            // App state initialized
+        };
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        /* ==========================================================================
+           TEST EXECUTION LOGIC
+           ========================================================================== */
+        function startAssessment(e) {
+            e.preventDefault();
+            const name = document.getElementById('takerName').value.trim();
+            const id = document.getElementById('takerID').value.trim();
+            const mode = document.querySelector('input[name="testMode"]:checked').value;
+
+            if (!name || !id) {
+                showToast("Please enter Participant Name and ID!");
+                return;
+            }
+
+            activeUser = { name, id };
+            activeMode = mode;
+            currentQuestionIndex = 0;
+            userAnswers = {};
+            flaggedItems = {};
+
+            // Section Toggles
+            document.getElementById('identitySection').classList.add('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('adminSection').classList.add('hidden');
+            document.getElementById('testEngineSection').classList.remove('hidden');
+
+            // Header info
+            document.getElementById('activeUserName').innerText = name;
+            document.getElementById('activeUserID').innerText = `ID: ${id}`;
+            document.getElementById('activeTestBadge').innerText = mode === 'pre' ? 'Mode: Pre-Test (50 Items)' : 'Mode: Post-Test (100 Items)';
+
+            // Setup timer
+            const durationMinutes = mode === 'pre' ? 60 : 120;
+            secondsRemaining = durationMinutes * 60;
+            startTimer();
+
+            // Render Palette & First Question
+            renderQuestionGrid();
+            loadQuestion(0);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                secondsRemaining--;
+                updateTimerDisplay();
+                if (secondsRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    showToast("Time limit expired! Submitting examination...");
+                    submitTest();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const h = Math.floor(secondsRemaining / 3600);
+            const m = Math.floor((secondsRemaining % 3600) / 60);
+            const s = secondsRemaining % 60;
+            document.getElementById('timerDisplay').innerText = 
+                `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function renderQuestionGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            const questions = QUESTION_BANK[activeMode];
+
+            questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `grid-btn-${idx}`;
+                btn.onclick = () => loadQuestion(idx);
+                btn.className = getGridBtnClass(idx);
+                btn.innerText = idx + 1;
+                grid.appendChild(btn);
+            });
+
+            updateProgressStats();
+        }
+
+        function getGridBtnClass(idx) {
+            const isAnswered = userAnswers[idx] !== undefined;
+            const isFlagged = flaggedItems[idx] === true;
+            const isActive = idx === currentQuestionIndex;
+
+            if (isActive) {
+                return "h-8 w-8 text-xs font-bold rounded-lg bg-navy-900 text-amber-400 shadow-md ring-2 ring-amber-400 transition";
+            } else if (isFlagged) {
+                return "h-8 w-8 text-xs font-bold rounded-lg bg-amber-500 text-white shadow-sm transition";
+            } else if (isAnswered) {
+                return "h-8 w-8 text-xs font-bold rounded-lg bg-teal-600 text-white shadow-sm transition";
+            } else {
+                return "h-8 w-8 text-xs font-semibold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-300 transition";
+            }
+        }
+
+        function updateProgressStats() {
+            const total = QUESTION_BANK[activeMode].length;
+            const answered = Object.keys(userAnswers).length;
+            const pct = Math.round((answered / total) * 100);
+
+            document.getElementById('answeredCountBadge').innerText = `${answered} / ${total}`;
+            document.getElementById('progressText').innerText = `${pct}% (${answered}/${total})`;
+            document.getElementById('progressBarFill').style.width = `${pct}%`;
+        }
+
+        function loadQuestion(index) {
+            const questions = QUESTION_BANK[activeMode];
+            if (index < 0 || index >= questions.length) return;
+
+            currentQuestionIndex = index;
+            const q = questions[index];
+
+            // Header Badges
+            document.getElementById('currentQuestionNumBadge').innerText = `Item #${index + 1} of ${questions.length}`;
+            document.getElementById('currentDomainBadge').innerText = q.domain;
+            
+            // Flag checkbox status
+            document.getElementById('flagCheckbox').checked = (flaggedItems[index] === true);
+
+            // Vignette & Stem
+            document.getElementById('vignetteBox').innerText = q.vignette;
+            document.getElementById('questionStem').innerText = q.stem;
+
+            // Options (A-D)
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            const optionLetters = ['A', 'B', 'C', 'D'];
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[index] === optIdx;
+                
+                const optLabel = document.createElement('label');
+                optLabel.className = `flex items-start p-3.5 border-2 rounded-xl cursor-pointer transition ${
+                    isSelected 
+                    ? 'border-teal-600 bg-teal-50/70 shadow-sm' 
+                    : 'border-slate-200 hover:border-slate-300 bg-white'
+                }`;
+
+                optLabel.innerHTML = `
+                    <input type="radio" name="opt_choice" value="${optIdx}" ${isSelected ? 'checked' : ''} 
+                        onchange="selectOption(${index}, ${optIdx})" class="sr-only">
+                    <div class="flex items-center justify-center w-6 h-6 rounded-full border-2 ${
+                        isSelected ? 'border-teal-600 bg-teal-600 text-white' : 'border-slate-300 text-slate-500'
+                    } text-xs font-bold mr-3 mt-0.5 flex-shrink-0">
+                        ${optionLetters[optIdx]}
+                    </div>
+                    <div class="text-sm text-slate-800 font-medium leading-relaxed pt-0.5">${optText}</div>
+                `;
+                optionsContainer.appendChild(optLabel);
+            });
+
+            // Nav Controls
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('prevBtn').classList.toggle('opacity-50', index === 0);
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (index === questions.length - 1) {
+                nextBtn.innerHTML = `Finish <i class="fa-solid fa-check ml-1"></i>`;
+                nextBtn.className = "px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition flex items-center gap-2";
+            } else {
+                nextBtn.innerHTML = `Next <i class="fa-solid fa-chevron-right ml-1"></i>`;
+                nextBtn.className = "px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-semibold transition flex items-center gap-2";
+            }
+
+            renderQuestionGrid();
+        }
+
+        function selectOption(qIdx, optIdx) {
+            userAnswers[qIdx] = optIdx;
+            loadQuestion(qIdx);
+        }
+
+        function toggleFlagCurrentQuestion() {
+            const isChecked = document.getElementById('flagCheckbox').checked;
+            flaggedItems[currentQuestionIndex] = isChecked;
+            renderQuestionGrid();
+        }
+
+        function navigateQuestion(direction) {
+            const questions = QUESTION_BANK[activeMode];
+            const target = currentQuestionIndex + direction;
+            if (target >= 0 && target < questions.length) {
+                loadQuestion(target);
+            }
+        }
+
+        function confirmSubmitTest() {
+            const total = QUESTION_BANK[activeMode].length;
+            const answered = Object.keys(userAnswers).length;
+            const unanswered = total - answered;
+
+            let msg = `Are you sure you want to submit your assessment exam?`;
+            if (unanswered > 0) {
+                msg = `You have ${unanswered} unanswered question(s)! ` + msg;
+            }
+
+            if (confirm(msg)) {
+                submitTest();
+            }
+        }
+
+        /* ==========================================================================
+           SCORING & ANALYTICS DASHBOARD
+           ========================================================================== */
+        function submitTest() {
+            clearInterval(timerInterval);
+
+            const questions = QUESTION_BANK[activeMode];
+            let correctCount = 0;
+            const domainStats = {};
+
+            DOMAINS.forEach(d => {
+                domainStats[d] = { total: 0, correct: 0 };
+            });
+
+            questions.forEach((q, idx) => {
+                if (!domainStats[q.domain]) {
+                    domainStats[q.domain] = { total: 0, correct: 0 };
+                }
+                domainStats[q.domain].total++;
+
+                const userAns = userAnswers[idx];
+                if (userAns !== undefined && userAns === q.key) {
+                    correctCount++;
+                    domainStats[q.domain].correct++;
+                }
+            });
+
+            const totalScore = Math.round((correctCount / questions.length) * 100);
+            const isPassed = totalScore >= 75;
+
+            // Log history
+            scoreHistory.push({
+                timestamp: new Date().toLocaleString('en-US'),
+                name: activeUser.name,
+                id: activeUser.id,
+                mode: activeMode.toUpperCase(),
+                score: totalScore,
+                correctFraction: `${correctCount}/${questions.length}`,
+                passed: isPassed
+            });
+
+            // UI Section Toggles
+            document.getElementById('testEngineSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+
+            document.getElementById('resTakerName').innerText = activeUser.name;
+            document.getElementById('resTakerID').innerText = activeUser.id;
+            document.getElementById('resultModeBadge').innerText = activeMode === 'pre' ? 'Pre-Test Assessment Results' : 'Post-Test Assessment Results';
+            document.getElementById('resScorePercentage').innerText = `${totalScore}%`;
+            document.getElementById('resCorrectFraction').innerText = `${correctCount} / ${questions.length}`;
+
+            // Grade Badge
+            const gradeBadge = document.getElementById('resGradeBadge');
+            if (isPassed) {
+                gradeBadge.innerText = "PASSED (Ethically Competent)";
+                gradeBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 mt-1";
+            } else {
+                gradeBadge.innerText = "NEEDS REMEDIATION (< 75%)";
+                gradeBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-red-100 text-red-800 mt-1";
+            }
+
+            // Render Charts & Diagnostics Review
+            renderAnalyticsCharts(correctCount, questions.length - correctCount, domainStats);
+            renderItemDiagnostics(questions);
+        }
+
+        function renderAnalyticsCharts(correct, wrong, domainStats) {
+            // Chart 1: Doughnut
+            const ctxPie = document.getElementById('scorePieChart').getContext('2d');
+            if (pieChartInstance) pieChartInstance.destroy();
+
+            pieChartInstance = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct Items', 'Incorrect / Unanswered'],
+                    datasets: [{
+                        data: [correct, wrong],
+                        backgroundColor: ['#0d9488', '#f43f5e'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Chart 2: Bar
+            const ctxBar = document.getElementById('domainBarChart').getContext('2d');
+            if (barChartInstance) barChartInstance.destroy();
+
+            const domainLabels = Object.keys(domainStats);
+            const domainPercentages = domainLabels.map(d => {
+                const st = domainStats[d];
+                return st.total > 0 ? Math.round((st.correct / st.total) * 100) : 0;
+            });
+
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: domainLabels.map(l => l.length > 20 ? l.substring(0, 18) + '...' : l),
+                    datasets: [{
+                        label: 'Domain Mastery (%)',
+                        data: domainPercentages,
+                        backgroundColor: '#4338ca',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100 }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function renderItemDiagnostics(questions) {
+            const container = document.getElementById('itemDiagnosticsContainer');
+            container.innerHTML = '';
+
+            const optionLetters = ['A', 'B', 'C', 'D'];
+
+            questions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns !== undefined && userAns === q.key;
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl border ${
+                    isCorrect ? 'bg-emerald-50/40 border-emerald-200' : 'bg-red-50/40 border-red-200'
+                } space-y-2`;
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-slate-800">Item #${idx + 1} - ${q.domain}</span>
+                        <span class="font-bold px-2 py-0.5 rounded ${
+                            isCorrect ? 'bg-emerald-200 text-emerald-800' : 'bg-red-200 text-red-800'
+                        }">${isCorrect ? 'CORRECT' : 'INCORRECT / SKIPPED'}</span>
+                    </div>
+                    <p class="text-xs text-slate-700 italic">${q.vignette}</p>
+                    <p class="text-xs font-bold text-slate-900">${q.stem}</p>
+                    <div class="text-xs space-y-1 font-medium pt-1">
+                        <div>Your Answer: <strong class="${isCorrect ? 'text-emerald-700' : 'text-red-600'}">
+                            ${userAns !== undefined ? optionLetters[userAns] + '. ' + q.options[userAns] : 'Not answered'}
+                        </strong></div>
+                        <div>Correct Key: <strong class="text-emerald-700">${optionLetters[q.key]}. ${q.options[q.key]}</strong></div>
+                    </div>
+                    <div class="mt-2 p-2.5 bg-white/80 rounded-lg border border-slate-200 text-xs text-slate-600">
+                        <strong class="text-slate-800">Ethical & Clinical Rationale:</strong> ${q.rationale}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function resetApp() {
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('adminSection').classList.add('hidden');
+            document.getElementById('testEngineSection').classList.add('hidden');
+            document.getElementById('identitySection').classList.remove('hidden');
+        }
+
+        /* ==========================================================================
+           OPERATOR / ADMIN MANAGEMENT SECTION (Password: Fakinah_1)
+           ========================================================================== */
+        function openAdminModal() {
+            document.getElementById('adminLoginModal').classList.remove('hidden');
+            document.getElementById('adminLoginError').classList.add('hidden');
+            document.getElementById('adminPasswordInput').value = '';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminLoginModal').classList.add('hidden');
+        }
+
+        function verifyAdminPassword(e) {
+            e.preventDefault();
+            const pwd = document.getElementById('adminPasswordInput').value;
+            
+            if (pwd === "Fakinah_1") {
+                closeAdminModal();
+                showAdminPanel();
+                showToast("Operator Authentication Successful!");
+            } else {
+                document.getElementById('adminLoginError').classList.remove('hidden');
+            }
+        }
+
+        function showAdminPanel() {
+            document.getElementById('identitySection').classList.add('hidden');
+            document.getElementById('testEngineSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('adminSection').classList.remove('hidden');
+
+            renderAdminScoreLog();
+            renderAdminQuestionList();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('adminSection').classList.add('hidden');
+            document.getElementById('identitySection').classList.remove('hidden');
+        }
+
+        function renderAdminScoreLog() {
+            const tbody = document.getElementById('adminScoreLogTableBody');
+            tbody.innerHTML = '';
+
+            if (scoreHistory.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-slate-400">No test results recorded in current session.</td></tr>`;
+                return;
+            }
+
+            scoreHistory.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3">${row.timestamp}</td>
+                    <td class="p-3 font-bold text-slate-800">${row.name}</td>
+                    <td class="p-3 font-mono">${row.id}</td>
+                    <td class="p-3">${row.mode}</td>
+                    <td class="p-3 font-bold text-teal-700">${row.score}%</td>
+                    <td class="p-3">${row.correctFraction}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${
+                        row.passed ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'
+                    }">${row.passed ? 'PASSED' : 'REMEDIATION'}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderAdminQuestionList() {
+            const bankKey = document.getElementById('adminBankSelect').value;
+            const questions = QUESTION_BANK[bankKey];
+            const container = document.getElementById('adminQuestionListContainer');
+            container.innerHTML = '';
+
+            document.getElementById('adminItemCount').innerText = questions.length;
+
+            const optionLetters = ['A', 'B', 'C', 'D'];
+
+            questions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3";
+                
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-navy-900 text-white font-bold text-xs px-2.5 py-0.5 rounded">No. ${idx + 1}</span>
+                            <span class="text-xs font-bold text-slate-600 bg-slate-200 px-2 py-0.5 rounded">${q.domain}</span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-mono">ID: ${q.id}</span>
+                    </div>
+
+                    <div class="text-xs text-slate-700 bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+                        <p class="italic text-slate-600">${q.vignette}</p>
+                        <p class="font-bold text-slate-900">${q.stem}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Correct Answer Key:</label>
+                            <select onchange="updateQuestionKey('${bankKey}', ${idx}, this.value)" class="w-full px-3 py-1.5 bg-white border border-slate-300 rounded-lg font-bold text-teal-700 focus:ring-teal-600">
+                                ${q.options.map((opt, oIdx) => `
+                                    <option value="${oIdx}" ${q.key === oIdx ? 'selected' : ''}>
+                                        Option ${optionLetters[oIdx]}: ${opt.substring(0, 45)}...
+                                    </option>
+                                `).join('')}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Edit Rationale / Explanation:</label>
+                            <textarea onchange="updateQuestionRationale('${bankKey}', ${idx}, this.value)" rows="2" 
+                                class="w-full p-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-teal-600 text-slate-800">${q.rationale}</textarea>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updateQuestionKey(bankKey, idx, newKeyVal) {
+            QUESTION_BANK[bankKey][idx].key = parseInt(newKeyVal);
+            showToast(`Answer key for item #${idx + 1} updated!`);
+        }
+
+        function updateQuestionRationale(bankKey, idx, newRationaleVal) {
+            QUESTION_BANK[bankKey][idx].rationale = newRationaleVal;
+            showToast(`Rationale for item #${idx + 1} updated!`);
+        }
+
+        function exportScoresToCSV() {
+            if (scoreHistory.length === 0) {
+                alert("No score registry logs available in current session.");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,Timestamp,Participant Name,ID Number,Test Mode,Final Score (%),Correct Fraction,Status\n";
+            scoreHistory.forEach(row => {
+                csvContent += `"${row.timestamp}","${row.name}","${row.id}","${row.mode}","${row.score}","${row.correctFraction}","${row.passed ? 'PASSED' : 'REMEDIATION'}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Nursing_Ethics_Score_Registry_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
